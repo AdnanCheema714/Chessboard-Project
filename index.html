@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Chessboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e1e2f, #111119);
+            font-family: Arial, sans-serif;
+        }
+
+        .chessboard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        .Chessboard {
+            display: grid;
+            grid-template-columns: repeat(8, 65px);
+            grid-template-rows: repeat(8, 65px);
+            border: 6px solid #4a3525;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .square {
+            width: 65px;
+            height: 65px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        /* Light & Dark Squares */
+        .a {
+            background-color:#f0d9b5;
+        }
+
+        .b {
+            background-color: #b58863;
+        }
+
+        /* Hover Effect */
+        .square:hover {
+            opacity: 0.9;
+        }
+
+        /* Selected Square Effect */
+        .square.selected {
+            background-color: #7b61ff !important;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+        }
+
+        /* Dragging State */
+        .piece {
+            cursor: grab;
+            transition: transform 0.15s ease;
+        }
+
+        .piece:active {
+            cursor: grabbing;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chessboard-container">
+        <h1>Interactive Chessboard</h1>
+        <div class="Chessboard" id="board">
+            <!-- Row 8 (Black Major Pieces) -->
+            <div class="square a"><span class="piece" draggable="true">♜</span></div>
+            <div class="square b"><span class="piece" draggable="true">♞</span></div>
+            <div class="square a"><span class="piece" draggable="true">♝</span></div>
+            <div class="square b"><span class="piece" draggable="true">♛</span></div>
+            <div class="square a"><span class="piece" draggable="true">♚</span></div>
+            <div class="square b"><span class="piece" draggable="true">♝</span></div>
+            <div class="square a"><span class="piece" draggable="true">♞</span></div>
+            <div class="square b"><span class="piece" draggable="true">♜</span></div>
+
+            <!-- Row 7 (Black Pawns) -->
+            <div class="square b"><span class="piece" draggable="true">♟</span></div>
+            <div class="square a"><span class="piece" draggable="true">♟</span></div>
+            <div class="square b"><span class="piece" draggable="true">♟</span></div>
+            <div class="square a"><span class="piece" draggable="true">♟</span></div>
+            <div class="square b"><span class="piece" draggable="true">♟</span></div>
+            <div class="square a"><span class="piece" draggable="true">♟</span></div>
+            <div class="square b"><span class="piece" draggable="true">♟</span></div>
+            <div class="square a"><span class="piece" draggable="true">♟</span></div>
+
+            <!-- Empty Rows (Rows 6, 5, 4, 3) -->
+            <div class="square a"></div><div class="square b"></div><div class="square a"></div><div class="square b"></div>
+            <div class="square a"></div><div class="square b"></div><div class="square a"></div><div class="square b"></div>
+
+            <div class="square b"></div><div class="square a"></div><div class="square b"></div><div class="square a"></div>
+            <div class="square b"></div><div class="square a"></div><div class="square b"></div><div class="square a"></div>
+
+            <div class="square a"></div><div class="square b"></div><div class="square a"></div><div class="square b"></div>
+            <div class="square a"></div><div class="square b"></div><div class="square a"></div><div class="square b"></div>
+
+            <div class="square b"></div><div class="square a"></div><div class="square b"></div><div class="square a"></div>
+            <div class="square b"></div><div class="square a"></div><div class="square b"></div><div class="square a"></div>
+
+            <!-- Row 2 (White Pawns) -->
+            <div class="square a"><span class="piece" draggable="true">♙</span></div>
+            <div class="square b"><span class="piece" draggable="true">♙</span></div>
+            <div class="square a"><span class="piece" draggable="true">♙</span></div>
+            <div class="square b"><span class="piece" draggable="true">♙</span></div>
+            <div class="square a"><span class="piece" draggable="true">♙</span></div>
+            <div class="square b"><span class="piece" draggable="true">♙</span></div>
+            <div class="square a"><span class="piece" draggable="true">♙</span></div>
+            <div class="square b"><span class="piece" draggable="true">♙</span></div>
+
+            <!-- Row 1 (White Major Pieces) -->
+            <div class="square b"><span class="piece" draggable="true">♖</span></div>
+            <div class="square a"><span class="piece" draggable="true">♘</span></div>
+            <div class="square b"><span class="piece" draggable="true">♗</span></div>
+            <div class="square a"><span class="piece" draggable="true">♕</span></div>
+            <div class="square b"><span class="piece" draggable="true">♔</span></div>
+            <div class="square a"><span class="piece" draggable="true">♗</span></div>
+            <div class="square b"><span class="piece" draggable="true">♘</span></div>
+            <div class="square a"><span class="piece" draggable="true">♖</span></div>
+        </div>
+    </div>
+
+    <script>
+        let draggedPiece = null;
+
+        // Add Drag and Drop Events
+        document.querySelectorAll('.piece').forEach(piece => {
+            piece.addEventListener('dragstart', (e) => {
+                draggedPiece = e.target;
+                setTimeout(() => e.target.style.display = 'none', 0);
+            });
+
+            piece.addEventListener('dragend', (e) => {
+                setTimeout(() => {
+                    if (draggedPiece) {
+                        draggedPiece.style.display = 'block';
+                        draggedPiece = null;
+                    }
+                }, 0);
+            });
+        });
+
+        document.querySelectorAll('.square').forEach(square => {
+            square.addEventListener('dragover', (e) => {
+                e.preventDefault();
+            });
+
+            square.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (draggedPiece) {
+                    // Clear target square if it already has a piece
+                    square.innerHTML = '';
+                    square.appendChild(draggedPiece);
+                    draggedPiece.style.display = 'block';
+                }
+            });
+
+            // Click Highlight Selection
+            square.addEventListener('click', () => {
+                document.querySelectorAll('.square').forEach(s => s.classList.remove('selected'));
+                square.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>
